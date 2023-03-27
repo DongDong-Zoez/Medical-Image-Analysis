@@ -75,12 +75,12 @@ The training result are shown below:
 - CoATNet
    - paper: https://arxiv.org/pdf/2106.04803.pdf
 
-<style>
+<!-- <style>
     .max {
         color: red;
         font-weight: bold;
     }
-</style>
+</style> -->
 
 ## Future work
 
