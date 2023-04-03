@@ -20,7 +20,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch training script')
     parser.add_argument('--base_root', type=str, default='/home/dongdong/Medical-Image-Analysis/CXR/xray_jpg/', help='path to the base data directory')
     parser.add_argument('--csv_name', type=str, default='chest_dongdong.csv', help='name of the CSV file containing the dataset')
-    parser.add_argument('--pretrained_path', type=str, default='model.pth', help='name of the file to save the trained model')
+    parser.add_argument('--pretrained_path', type=str, default='0.8603.pth', help='name of the file to save the trained model')
     parser.add_argument('--pretrained', type=bool, default=True, help='transfer learning or not')
     parser.add_argument('--num_classes', type=int, default=7, help='number of classes')
     args = parser.parse_args()
@@ -61,6 +61,7 @@ def main():
     # show auc roc scores for each task 
     print("*" * 10, " Training ", "*" * 10)
     print("AUC: ",auc_roc_score(train_true, train_pred))
+    print("AUC: ",np.mean(auc_roc_score(train_true, train_pred)))
     print("ACC: ",accuracy_multi(torch.from_numpy(train_true), torch.from_numpy(train_pred>0.5)) )
 
     model.eval()
@@ -82,6 +83,7 @@ def main():
     # show auc roc scores for each task 
     print("*" * 10, " Validation ", "*" * 10)
     print("AUC: ",auc_roc_score(valid_true, valid_pred))
+    print("AUC: ",np.mean(auc_roc_score(valid_true, valid_pred)))
     print("ACC: ",accuracy_multi(torch.from_numpy(valid_true), torch.from_numpy(valid_pred>0.5)) )
     # print("AP: ",ap(torch.from_numpy(valid_true), torch.from_numpy(valid_pred>0.5)) )
 
@@ -103,6 +105,7 @@ def main():
     # show auc roc scores for each task 
     print("*" * 10, " Test ", "*" * 10)
     print("AUC: ",auc_roc_score(test_true, test_pred))
+    print("AUC: ",np.mean(auc_roc_score(test_true, test_pred)))
     print("ACC: ",accuracy_multi(torch.from_numpy(test_true), torch.from_numpy(test_pred>0.5)) )
     # print("AP: ",ap(torch.from_numpy(test_true), torch.from_numpy(test_pred>0.5)) )
 
