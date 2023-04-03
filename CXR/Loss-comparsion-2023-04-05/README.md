@@ -1,4 +1,4 @@
-# BinaryCrossEntropy a survey 2023-04-05
+# Loss Function: a survey 2023-04-05
 
 System hardware:
 
