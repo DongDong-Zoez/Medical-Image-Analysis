@@ -15,3 +15,7 @@ class CXRNet(nn.Module):
 def create_model(num_classes, pretrained_path):
     model = CXRNet(num_classes, pretrained_path)
     return model
+
+if __name__ == "__main__":
+    model  = CXRNet(7)
+    print(model)

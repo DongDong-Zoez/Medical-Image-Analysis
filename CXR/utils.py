@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import pandas as pd
 import os
+import wandb
 
 from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 
@@ -55,3 +56,16 @@ def split(base_root, csv_name):
     df_test = df.loc[test_idx]
 
     return df_train, df_valid, df_test
+
+def wandb_settings(key, config, project, entity, name):
+
+    # Wandb Login
+    wandb.login(key=key)
+
+    # Initialize W&B
+    run = wandb.init(
+        config=config,
+        project=project,
+        entity=entity,
+        name=name,
+    )
