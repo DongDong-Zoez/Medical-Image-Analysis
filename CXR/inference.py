@@ -20,9 +20,10 @@ def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch training script')
     parser.add_argument('--base_root', type=str, default='/home/dongdong/Medical-Image-Analysis/CXR/xray_jpg/', help='path to the base data directory')
     parser.add_argument('--csv_name', type=str, default='chest_dongdong.csv', help='name of the CSV file containing the dataset')
-    parser.add_argument('--pretrained_path', type=str, default='0.8603.pth', help='name of the file to save the trained model')
+    parser.add_argument('--pretrained_path', type=str, default='0.8960.pth', help='name of the file to save the trained model')
     parser.add_argument('--pretrained', type=bool, default=True, help='transfer learning or not')
     parser.add_argument('--num_classes', type=int, default=7, help='number of classes')
+    parser.add_argument('--model_name', type=str, default="coatnet_1_rw_224", help='model_name')
     args = parser.parse_args()
     return args
 
@@ -34,7 +35,7 @@ def main():
 
     args = parse_args()
 
-    model = create_model(args.num_classes, args.pretrained)
+    model = create_model(args.num_classes, args.model_name, args.pretrained)
     model.to("cuda")
 
     trainloader, validloader, testloader = get_dataloader(args.base_root, args.csv_name)

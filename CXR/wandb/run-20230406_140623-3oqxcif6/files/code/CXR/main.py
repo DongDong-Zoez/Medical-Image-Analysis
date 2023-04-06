@@ -26,7 +26,7 @@ def parse_args():
     parser.add_argument('--weight_decay', type=float, default=1e-4, help='weight decay for the optimizer')
     parser.add_argument('--pretrained', type=bool, default=True, help='transfer learning or not')
     parser.add_argument('--num_classes', type=int, default=7, help='number of classes')
-    parser.add_argument('--loss_func', type=str, default="WeightedBCE", help='loss function')
+    parser.add_argument('--loss_func', type=str, default="FocalLoss", help='loss function')
     parser.add_argument('--model_name', type=str, default="coatnet_1_rw_224", help='model name')
     args = parser.parse_args()
     return args

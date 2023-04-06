@@ -1,0 +1,145 @@
+{
+    "os": "Linux-5.15.90.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.10.6",
+    "heartbeatAt": "2023-04-06T06:06:24.658486",
+    "startedAt": "2023-04-06T06:06:23.622610",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/dongdong/Medical-Image-Analysis/CXR/main.py",
+    "codePath": "CXR/main.py",
+    "git": {
+        "remote": "https://github.com/DongDong-Zoez/Medical-Image-Analysis.git",
+        "commit": "f005ca09a58bde870c8246f1a42df9a51b1341ec"
+    },
+    "email": "zoez5230100@gmail.com",
+    "root": "/home/dongdong/Medical-Image-Analysis",
+    "host": "DDCVLab",
+    "username": "dongdong",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 10,
+    "cpu_count_logical": 20,
+    "cpu_freq": {
+        "current": 2688.0109999999995,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2688.011,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "total": 1006.853931427002,
+        "used": 25.511417388916016
+    },
+    "gpu": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "memory_total": 4294967296
+        }
+    ],
+    "memory": {
+        "total": 7.572578430175781
+    }
+}
