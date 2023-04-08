@@ -6,6 +6,7 @@ from model import create_model
 from criterion import criterion
 from dataset import get_dataloader
 from utils import seed_everything, wandb_settings
+from secret import key
 
 from libauc.metrics import auc_roc_score
 from fastai.metrics import accuracy_multi, RocAucMulti, APScoreMulti
@@ -42,7 +43,7 @@ def main():
     d = vars(args)
     name = args.model_name + "-" + args.loss_func
 
-    wandb_settings("c1058c55d898e9b5fa5f454bf6cd44b4493cabfe", d, "E-DA-CXR-Loss-Comparsion", "DDCVLAB", name)
+    wandb_settings(key, d, "E-DA-CXR-Loss-Comparsion", "DDCVLAB", name)
 
     model = create_model(args.num_classes, args.model_name, args.pretrained)
     model.to("cuda")
