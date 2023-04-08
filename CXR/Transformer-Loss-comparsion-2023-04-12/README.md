@@ -64,6 +64,8 @@ The results are shown below:
 |coatnet_1_rw_224|0.8960|<a class="max">0.8783</a>|41.72|
 |coatnet_2_rw_224|0.8256|0.8559|73.89|
 
+![models-auc](../assets/models-auc.png)
+
 ### Related architecture
 
 - DenseNet
