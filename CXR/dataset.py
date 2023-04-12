@@ -46,8 +46,8 @@ def get_dataloader(base_root, csv_name):
     validSet = CXRDataset(df_valid, val_transform, False)
     testSet =  CXRDataset(df_test, val_transform, False)
     
-    trainloader =  torch.utils.data.DataLoader(traindSet, batch_size=8, shuffle=True)
-    validloader =  torch.utils.data.DataLoader(validSet, batch_size=8, shuffle=True)
-    testloader =  torch.utils.data.DataLoader(testSet, batch_size=8, shuffle=False)
+    trainloader =  torch.utils.data.DataLoader(traindSet, batch_size=4, shuffle=True)
+    validloader =  torch.utils.data.DataLoader(validSet, batch_size=4, shuffle=True)
+    testloader =  torch.utils.data.DataLoader(testSet, batch_size=4, shuffle=False)
 
     return trainloader, validloader, testloader

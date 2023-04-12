@@ -1,3 +1,4 @@
 **/xray_jpg
 **/__pycache__
 **/*.pth
+**/secret.py

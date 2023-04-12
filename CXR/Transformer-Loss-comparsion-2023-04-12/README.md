@@ -44,6 +44,22 @@ We examinate the hyperparameters of weight decay and learning rate (backbone is 
 
 The best hyperparameters is (weight decay, learning rate) = (1e-4, 1e-5)
 
+## Loss function in Transformer
+
+| Loss function | Validation | Test | 
+| ------------- | ---------- | ---- |
+| BCE | 0.5804 | 0.5966|
+| AUC-M | 0.863 | 0.7812 |
+| Weighted BCE | 0.863 | 0.7812 |
+| Weighted Focal Loss | 0.8960 | 0.8783 |
+
+**Weighted Focal Loss:**
+
+| Dataset    |   主動脈硬化(鈣化)   |   動脈彎曲   |   肺野異常   |   肺紋增加   |   脊椎病變   |   心臟肥大   |   肺尖肋膜增厚   |
+|:--:|:----------------:|:--------:|:--------:|:--------:|:--------:|:--------:|:------------:|
+| Validation |   0.8887   |   0.8947       |   0.8458       |   0.8806       |   0.8757       |   0.9764       |   0.9104               |
+| Test       |   0.9290   |   0.8789       |   0.9110       |   0.8594       |   0.8214       |   0.9594       |   0.7888               |
+
 ## Experimental Results
 
 The following table indicate the performance of transformers architecture with weighted focal loss.
@@ -77,3 +93,24 @@ The results are shown below:
    - paper: https://arxiv.org/pdf/2204.01697.pdf
 - CoATNet
    - paper: https://arxiv.org/pdf/2106.04803.pdf
+
+## Some Insights
+
+During training phase, we have found some insights
+
+1. The imbalance ratio of the data is 4%, and it is impossible for training with CE
+2. Compare to Transformer, CNN models usually converge faster and more accuracy
+3. Transformers architecture often need a low learning rate (1e-5 or 1e-6) for training 
+4. Smaller model is better, but need to large enough to leverage image features
+5. Transformer models often less accuracy compare to DenseNet121, we thought that it is because of transformer is often larger than CNN model, therefore, more data need to be add in the training phase
+6. Loss function did influenced model performance significantly
+
+## Future Work
+
+1. Ensemble 
+2. KFold
+3. More hyperparameters
+4. Add the information of metadata
+5. Self-surpervised for pretraining
+6. Compare more model
+7. Collect more data 

@@ -2,7 +2,7 @@ import numpy as np
 import torch 
 import wandb
 
-from model import create_model
+from model import create_model, EnsembleNet
 from criterion import criterion
 from dataset import get_dataloader
 from utils import seed_everything
@@ -36,6 +36,9 @@ def main():
     args = parse_args()
 
     model = create_model(args.num_classes, args.model_name, args.pretrained)
+    #state_dict = torch.load("/home/dongdong/Medical-Image-Analysis/CXR/0.9075.pth")
+    #model = EnsembleNet()
+    #model.load_state_dict(state_dict)
     model.to("cuda")
 
     trainloader, validloader, testloader = get_dataloader(args.base_root, args.csv_name)
