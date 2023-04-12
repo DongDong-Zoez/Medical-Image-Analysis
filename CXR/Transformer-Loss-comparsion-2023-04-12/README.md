@@ -49,7 +49,7 @@ The best hyperparameters is (weight decay, learning rate) = (1e-4, 1e-5)
 | Loss function | Validation | Test | 
 | ------------- | ---------- | ---- |
 | BCE | 0.5804 | 0.5966|
-| AUC-M | 0.863 | 0.7812 |
+| AUC-M | 0.6401 | 0.6773 |
 | Weighted BCE | 0.863 | 0.7812 |
 | Weighted Focal Loss | 0.8960 | 0.8783 |
 
