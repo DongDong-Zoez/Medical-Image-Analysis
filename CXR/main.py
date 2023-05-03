@@ -2,7 +2,7 @@ import numpy as np
 import torch 
 import wandb
 
-from model import create_model, EnsembleNet
+from model import create_model, EnsembleNet, CRFMultiLabelClassifier
 from criterion import criterion
 from dataset import get_dataloader
 from utils import seed_everything, wandb_settings
@@ -23,8 +23,8 @@ def parse_args():
     parser.add_argument('--csv_name', type=str, default='chest_dongdong.csv', help='name of the CSV file containing the dataset')
     parser.add_argument('--epochs', type=int, default=50, help='number of training epochs')
     parser.add_argument('--save_name', type=str, default='model.pth', help='name of the file to save the trained model')
-    parser.add_argument('--lr', type=float, default=1e-6, help='learning rate for the optimizer')
-    parser.add_argument('--weight_decay', type=float, default=1e-4, help='weight decay for the optimizer')
+    parser.add_argument('--lr', type=float, default=1e-4, help='learning rate for the optimizer')
+    parser.add_argument('--weight_decay', type=float, default=0, help='weight decay for the optimizer')
     parser.add_argument('--pretrained', type=bool, default=True, help='transfer learning or not')
     parser.add_argument('--num_classes', type=int, default=7, help='number of classes')
     parser.add_argument('--loss_func', type=str, default="WeightedBCE", help='loss function')
@@ -46,9 +46,9 @@ def main():
     # wandb_settings(key, d, "E-DA-CXR-Loss-Comparsion", "DDCVLAB", name)
 
     # model = create_model(args.num_classes, args.model_name, args.pretrained)
-    model = EnsembleNet()
-    state_dict = torch.load("/home/dongdong/Medical-Image-Analysis/CXR/0.9075.pth")
-    model.load_state_dict(state_dict)
+    model = CRFMultiLabelClassifier(7)
+    #state_dict = torch.load("/home/dongdong/Medical-Image-Analysis/CXR/0.8975focal.pth")
+    #model.load_state_dict(state_dict, strict=True)
     model.to("cuda")
 
     num_pos = torch.tensor([67,74,24,106,114,33,29]).cuda()
@@ -84,31 +84,6 @@ def main():
                     test_pred = []
                     test_true = [] 
                     for _, data in enumerate(validloader):
-                        test_data, test_labels = data
-                        test_data = test_data.cuda()
-                        y_pred = model(test_data)
-                        y_pred = torch.sigmoid(y_pred)
-                        test_pred.append(y_pred.cpu().detach().numpy())
-                        test_true.append(test_labels.numpy())
-                    
-                    test_true = np.concatenate(test_true)
-                    test_pred = np.concatenate(test_pred)
-                    val_auc_mean = np.mean(auc_roc_score(test_true, test_pred)) 
-                    model.train()
-
-                    if best_val_auc < val_auc_mean:
-                        best_val_auc = val_auc_mean
-                        torch.save(model.state_dict(), args.save_name)
-
-                    print ('Epoch=%s, BatchID=%s, Val_AUC=%.4f, Best_Val_AUC=%.4f'%(epoch, idx, val_auc_mean, best_val_auc))
-
-            # validation  
-            if idx % 100 == 0:
-                model.eval()
-                with torch.no_grad():    
-                    test_pred = []
-                    test_true = [] 
-                    for _, data in enumerate(testloader):
                         test_data, test_labels = data
                         test_data = test_data.cuda()
                         y_pred = model(test_data)
