@@ -113,14 +113,14 @@ $$
 - $y:$ 影像分割的 Output
 - $x:$ 原影像
 - Let $C$ be a clique, $X_C$ be the observation data in $C$
-- $p(X)=\frac{1}{Z}\prod_C\psi_C(X_C)$ where potential function is defined as $\psi_C(X_C)=e^{-E(X_C)}$ and $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i<j}\psi_p(x_i, x_j)$
+- $p(X)=\frac{1}{Z}\prod_C\psi_C(X_C)$ where potential function is defined as $\psi_C(X_C)=e^{-E(X_C)}$ and $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i\TEXTLESS j}\psi_p(x_i, x_j)$
 
 ##### Energy function
 
-- $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i<j}\psi_p(x_i, x_j)$
+- $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i\TEXTLESS j}\psi_p(x_i, x_j)$
 - The value of energy function indicates that the degree of stationary of the state (lower value indicate stationary)
 - $\sum_i\psi_u(x_i):$ the pixels assign the wrong labels $(|X_C|=1)$
-- $\sum_{i<j}\psi_p(x_i, x_j):$ all the pair of points assign different labels $(|X_C|=2)$
+- $\sum_{i\TEXTLESS j}\psi_p(x_i, x_j):$ all the pair of points assign different labels $(|X_C|=2)$
 
 注意到在能量函數中，unary potential 通常為 CNN 模型的輸出，pairwise potential 則是需要去決定的函數
 
@@ -134,10 +134,10 @@ $$
 - (b) 將影像的 pixel 點建模成隨機場的形式
 - (c) 通過 CNN 得到 unary output (這時有些點被分錯) (unary potential)
 
-<details>
-<summary>為什麼會分錯呢? 點擊查看解答</summary>
+\TEXTLESS details>
+\TEXTLESS summary>為什麼會分錯呢? 點擊查看解答\TEXTLESS /summary>
 CNN 只關注 local 範圍的物件
-</details>
+\TEXTLESS /details>
 
 - (d) 這時候我們可以根據影像的一些特徵，如 pixels 之間的亮度，位置等等去懲罰那些分錯的點 (pairwise potential)
 
@@ -323,14 +323,14 @@ $$
 - $y:$ 影像分割的 Output
 - $x:$ 原影像
 - Let $C$ be a clique, $X_C$ be the observation data in $C$
-- $p(X)=\frac{1}{Z}\prod_C\psi_C(X_C)$ where potential function is defined as $\psi_C(X_C)=e^{-E(X_C)}$ and $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i<j}\psi_p(x_i, x_j)$
+- $p(X)=\frac{1}{Z}\prod_C\psi_C(X_C)$ where potential function is defined as $\psi_C(X_C)=e^{-E(X_C)}$ and $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i\TEXTLESS j}\psi_p(x_i, x_j)$
 
 #### Energy function
 
-- $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i<j}\psi_p(x_i, x_j)$
+- $E(X_C)=\sum_i\psi_u(x_i)+\sum_{i\TEXTLESS j}\psi_p(x_i, x_j)$
 - The value of energy function indicates that the degree of stationary of the state (lower value indicate stationary)
 - $\sum_i\psi_u(x_i):$ the pixels assign the wrong labels $(|X_C|=1)$
-- $\sum_{i<j}\psi_p(x_i, x_j):$ all the pair of points assign different labels $(|X_C|=2)$
+- $\sum_{i\TEXTLESS j}\psi_p(x_i, x_j):$ all the pair of points assign different labels $(|X_C|=2)$
 
 注意到在能量函數中，unary potential 通常為 CNN 模型的輸出，pairwise potential 則是需要去決定的函數
 
