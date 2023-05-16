@@ -128,7 +128,7 @@ $$
 
 看了這麼多數學，都快吐了，我們來看看直覺上 CRFs 代給我們什麼?
 
-![](https://i.imgur.com/uwUVOtS.png)
+![](./assets/crf.png)
 
 - (a) 原影像
 - (b) 將影像的 pixel 點建模成隨機場的形式
@@ -296,7 +296,7 @@ $$p(x,y)=p(y)p(x|y)=\prod_{t=1}^Tp(y_t|y_{t-1})p(x_t|y_t)$$
 
 不難看出，上式第一個等號為條件機率，其中 $y=\{y_1,\cdots, y_t\}$ 為狀態序列，第二個等號表示從第一個狀態轉移到最後一個狀態的機率，乘上狀態產生觀測值的機率
 
-![https://i.stack.imgur.com/khcnl.png](https://i.stack.imgur.com/khcnl.png)
+![](./assets/hmm_crf.png)
 
 #### CRFs
 
@@ -336,7 +336,7 @@ $$
 
 #### MF Inference
 
-![](https://i.imgur.com/PHFHzHk.jpg)
+![](./assets/mf.jpg)
 
 #### FullCRFs
 
