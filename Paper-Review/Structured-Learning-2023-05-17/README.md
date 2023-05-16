@@ -342,7 +342,7 @@ $$
 
 - $\psi_p(x_i,x_j|I)=\mu(x_i,x_j)\sum_{m=1}^Mw^{(m)}k^{(w)}_G(f_i^I,f_j^I)$
 - $w^{(m)}$ are the learnable parameters of model
-- $k(f_i^I,f_j^I)=\\w^{(1)}\exp(-\frac{|p_i-p_j|^2}{2\theta_\alpha^2}-\frac{|I_i-I_j|^2}{2\theta_\beta^2})+w^{(2)}\exp(-\frac{|p_i-p_j|^2}{2\theta_\gamma^2})$
+- $k(f_i^I,f_j^I)=w^{(1)}\exp(-\frac{|p_i-p_j|^2}{2\theta_\alpha^2}-\frac{|I_i-I_j|^2}{2\theta_\beta^2})+w^{(2)}\exp(-\frac{|p_i-p_j|^2}{2\theta_\gamma^2})$
 - $w^{(1)}, w^{(2)},\theta_\alpha, \theta_\beta, \theta_\gamma$ are learnable parameters
 - ConvCRFs complains that the message passing is the bottleneck of CRF with $O(\text{number of pixels}^2)$ time complexity
 
