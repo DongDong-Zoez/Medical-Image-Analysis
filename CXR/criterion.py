@@ -123,6 +123,30 @@ class WeightedBCE(nn.Module):
         # Return the average loss
         return torch.mean(weighted_bce)
     
+class RLCALoss(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, y, eta, p):
+        s = 0
+        eta = F.softmax(eta, dim=1)
+        for i in range(p.shape[1]):
+            p[:,i,:] = F.softmax(p[:,i,:], dim=1)
+        for i in range(y.shape[0]):
+            mask = y[i]
+            for k in range(p.shape[2]):
+                pj = 1
+                for idx, j in enumerate(mask):
+                    # shape (3,)
+                    if j == 0:
+                        pj *= (1 - p[i,idx,k])
+                    else:
+                        pj *= p[i,idx,k]
+                    # pj = torch.prod(pj ** j) * eta[i,k]
+                s += pj * eta[i,k]
+        return -torch.log(s) / y.shape[0]
+    
 
     
 def criterion(loss_func, num_pos, num_neg, *args, **kwargs):
@@ -134,9 +158,16 @@ def criterion(loss_func, num_pos, num_neg, *args, **kwargs):
         return FocalLoss(num_pos, num_neg, *args, **kwargs)
     elif loss_func == "BCE":
         return nn.BCEWithLogitsLoss()
+    elif loss_func == "RLCA":
+        return RLCALoss()
     
 if __name__ == "__main__":
-    a = torch.tensor([[1,0,1,0,1,1,1,0], [1,0,1,1,1,0,0,0]]).to(dtype=torch.float, device="cuda")
-    b = torch.randn(2,8).to(dtype=torch.float, device="cuda")
-    loss = FocalLoss()
-    print(loss(b ,a))
+    # a = torch.tensor([[1,0,1,0,1,1,1,0], [1,0,1,1,1,0,0,0]]).to(dtype=torch.float, device="cuda")
+    # b = torch.randn(2,8).to(dtype=torch.float, device="cuda")
+    # loss = FocalLoss()
+    # print(loss(b ,a))
+    p = torch.randn(1,7,3)
+    eta = torch.randn(1,3)
+    y = torch.tensor([[1,0,1,1,1,0,0]])
+    loss = RLCALoss()
+    print(loss(y, eta, p))

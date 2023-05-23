@@ -48,19 +48,52 @@ class EnsembleNet(nn.Module):
         x = self.head(x)
         return x       
     
-class BoostingNet(nn.Module):
-    def __init__(self, num_labels):
-        super(BoostingNet, self).__init__()
+class RLCANet(nn.Module):
+    def __init__(self, num_labels, num_latent_variable, flexible=False):
+        super(RLCANet, self).__init__()
         self.num_labels = num_labels
-        self.features = timm.create_model("tv_densenet121", num_classes=num_labels, pretrained=False)
+        self.num_latent_variable = num_latent_variable
+        self.flexible = flexible
+        self.backbone = timm.create_model("tv_densenet121", num_classes=num_labels, pretrained=False, features_only=True, out_indices=[4])
+        self.pool = nn.AdaptiveAvgPool2d(output_size=1)
+
+        in_channel = self.__get_in_channel()
+        self.latent_classifier = nn.Linear(in_channel, num_latent_variable)
+        if flexible:
+            self.condition_classifier = nn.Linear(in_channel, num_labels * num_latent_variable, bias=False)
+        else:
+            self.condition_classifier = nn.Linear(in_channel, num_labels, bias=False)
+        # The index (m, j) of the matrix represent γ_{mj}
+        self.intercept = nn.Parameter(torch.zeros(num_labels, num_latent_variable))
+
+    def __get_in_channel(self):
+        x = torch.randn(1,3,224,224)
+        return self.backbone(x)[0].shape[1]
+
         
     def forward(self, x):
-        x = self.features(x)
-        return x
+        x = self.backbone(x)[0]
+        x = self.pool(x).squeeze(-1).squeeze(-1)
+        # Here, we make the covariate z as same as the feature vector x
+        z = x
+        # η_j
+        latent = self.latent_classifier(x)
+        # p_{mj}
+        probs = []
+        prob = self.condition_classifier(z)
+        if self.flexible:
+            pass
+        else:
+            for j in range(self.num_latent_variable):
+                pmj = self.intercept[:,j]+prob
+                probs.append(pmj.unsqueeze(-1))
+        probs = torch.cat(probs, dim=-1)
+        return latent, probs
 
 if __name__ == "__main__":
-    x = torch.randn(1,3,224,224)
+    x = torch.randn(4,3,224,224)
     y = torch.tensor([[1,0,1,1,0,0,0]])
-    model = BoostingNet(7)
-    pred = model(x)
+    model = RLCANet(7,3)
     print(model)
+    latent, prob = model(x)
+    print(latent.shape, prob.shape)
